@@ -48,14 +48,15 @@ public class Main {
 
 	}
 
-	private static void handleFind(String find, int begin, int end) {
+	private static int handleFind(String find, int begin, int end) {
 
 		if(begin > end) {
 			System.out.println("The "+find+" is can't found.");
 			System.out.println(buffer[end].GetFullWord());
 			System.out.println("------------------------");
 			System.out.println(buffer[begin].GetFullWord());
-			return;
+			if (end == 0) return -1;
+			return end;
 		}
 		else {
 			int middle = (begin+end)/2;
@@ -64,12 +65,12 @@ public class Main {
 				for(int i=0; i < buffer[middle].Samesize; i++) 
 					System.out.println(buffer[buffer[middle].initNum+i].toString());
 
-				return;
+				return middle;
 			}
 			else if (buffer[middle].word.compareToIgnoreCase(find+" ") > 0)
-				handleFind(find, begin, middle-1);
+				return handleFind(find, begin, middle-1);
 			else 
-				handleFind(find, middle+1, end);
+				return handleFind(find, middle+1, end);
 		}
 	}
 
